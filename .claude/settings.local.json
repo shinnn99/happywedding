@@ -8,7 +8,9 @@
       "WebFetch(domain:hotroquangcao.com)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(python -c \"from PIL import Image; img = Image.open\\(''d:/hped/photo/1.png''\\); print\\(''Size:'', img.size\\); print\\(''Mode:'', img.mode\\)\")"
     ]
   }
 }
