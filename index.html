@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệp Cưới - Hữu An & Nguyễn Dung</title>
     
+    <!-- Custom Font -->
+    <style>
+        @font-face {
+            font-family: 'Fz-Photograph';
+            src: url('fonts/FZ-PHOTOGRAPH.TTF') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Corinthia&family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +32,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            red: '#900c1c',     // Màu đỏ đô chủ đạo
+                            red: '#2d6a8a',     // Màu xanh chủ đạo
                             gold: '#d4af37',    // Màu vàng đồng
                             bg: '#faf8f5',      // Màu nền kem nhạt
                             text: '#333333'
@@ -30,7 +40,7 @@
                     },
                     fontFamily: {
                         'serif': ['"Playfair Display"', 'serif'],
-                        'script': ['"Dancing Script"', 'cursive'],
+                        'script': ['"Fz-Photograph"', 'cursive'],
                         'sans': ['"Quicksand"', 'sans-serif'],
                     }
                 }
@@ -349,6 +359,10 @@
         .custom-select-wrapper {
             position: relative;
             font-family: 'Quicksand', sans-serif;
+            z-index: 10;
+        }
+        .custom-select-wrapper.open {
+            z-index: 100;
         }
         .custom-select-btn {
             width: 100%;
@@ -389,7 +403,7 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            z-index: 20;
+            z-index: 200;
             list-style: none;
             margin: 0;
             padding: 4px;
@@ -472,6 +486,166 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* === PETAL RAIN === */
+        #petalCanvas {
+            position: fixed;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 100%; max-width: 414px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* === SHIMMER on section titles === */
+        .shimmer-text {
+            background: linear-gradient(90deg, #1a3a5c 30%, #d4af37 50%, #1a3a5c 70%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* === CARD HOVER LIFT === */
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 16px 36px rgba(26,58,92,0.15);
+        }
+
+        /* === GALLERY IMAGE HOVER === */
+        .gallery-img-wrap {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .gallery-img-wrap img {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+        .gallery-img-wrap:hover img {
+            transform: scale(1.07);
+        }
+
+        /* === BUTTON RIPPLE === */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ripple .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: ripple-anim 0.6s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* === COUNTDOWN FLIP === */
+        .flip-num {
+            display: inline-block;
+            transition: transform 0.3s ease, opacity 0.15s ease;
+        }
+        .flip-num.flipping {
+            animation: flipNum 0.35s ease;
+        }
+        @keyframes flipNum {
+            0%   { transform: rotateX(0deg); opacity: 1; }
+            40%  { transform: rotateX(-90deg); opacity: 0; }
+            60%  { transform: rotateX(90deg); opacity: 0; }
+            100% { transform: rotateX(0deg); opacity: 1; }
+        }
+
+        /* === MUSIC PULSE RING === */
+        .music-pulse::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: rgba(45,106,138,0.3);
+            animation: musicRing 1.5s ease-out infinite;
+        }
+        @keyframes musicRing {
+            0%   { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        /* === SECTION DIVIDER GLOW === */
+        .divider-glow {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d4af37, transparent);
+            box-shadow: 0 0 8px rgba(212,175,55,0.5);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            margin: 2rem auto;
+            width: 80%;
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 6px rgba(212,175,55,0.4); }
+            50% { box-shadow: 0 0 18px rgba(212,175,55,0.9); }
+        }
+
+        /* === PHOTO SECTION PARALLAX HINT (CSS only) === */
+        .hero-img-wrap img {
+            transform: scale(1.08);
+            transition: transform 0.1s linear;
+        }
+
+        /* === APPEAR FROM BOTTOM for gallery items === */
+        .gallery-img-wrap {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .gallery-img-wrap.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === THANK YOU section zoom on scroll === */
+        .thankyou-card {
+            opacity: 0;
+            transform: scale(0.93);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .thankyou-card.in-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* === NAME slide-in on hero === */
+        .hero-name-anim {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: heroNameIn 1s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+            animation-delay: 0.4s;
+        }
+        @keyframes heroNameIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Floating hearts === */
+        .float-heart {
+            position: absolute;
+            animation: floatUp 3s ease-in forwards;
+            pointer-events: none;
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        @keyframes floatUp {
+            0%   { opacity: 0.8; transform: translateY(0) scale(1); }
+            100% { opacity: 0;   transform: translateY(-120px) scale(0.4); }
+        }
     </style>
 </head>
 <body>
@@ -486,157 +660,204 @@
 
         <!-- Tên 3 hàng -->
         <div style="width:100%;padding:0 2rem;">
-            <p style="font-family:'Dancing Script',cursive;color:#ffd700;font-size:clamp(2rem,10vw,2.8rem);line-height:1.2;text-align:left;">Hữu An</p>
+            <p style="font-family:'Fz-Photograph',cursive;color:#ffd700;font-size:clamp(2rem,10vw,2.8rem);line-height:1.2;text-align:left;">Hữu An</p>
             <p style="font-family:'Great Vibes',cursive;color:#f5c0c0;font-size:clamp(1.2rem,5vw,1.6rem);text-align:center;margin:0.1em 0;">and</p>
-            <p style="font-family:'Dancing Script',cursive;color:#ffd700;font-size:clamp(2rem,10vw,2.8rem);line-height:1.2;text-align:right;">Nguyễn Dung</p>
+            <p style="font-family:'Fz-Photograph',cursive;color:#ffd700;font-size:clamp(2rem,10vw,2.8rem);line-height:1.2;text-align:right;">Nguyễn Dung</p>
         </div>
 
         <!-- Ngày -->
-        <p style="font-family:'Playfair Display',serif;color:#f0d080;font-size:0.95rem;margin-top:1.2rem;letter-spacing:0.25em;">29 · 03 · 2026</p>
+        <p style="font-family:'Corinthia',cursive;color:#f0d080;font-size:2.2rem;margin-top:1.2rem;letter-spacing:0.18em;">29 · 03 · 2026</p>
 
         <!-- Đường kẻ vàng dưới -->
         <div style="width:60%;height:1px;background:linear-gradient(to right,transparent,#d4af37,transparent);margin-top:1.5rem;"></div>
 
         <!-- Tap to enter -->
         <div style="margin-top:3rem;display:flex;flex-direction:column;align-items:center;gap:0.6rem;animation:pulse 1.8s ease-in-out infinite;">
-            <i class="ph ph-envelope-open" style="color:#d4af37;font-size:2.8rem;"></i>
-            <p style="color:#f0d080;font-size:0.8rem;font-family:'Quicksand',sans-serif;letter-spacing:0.15em;text-transform:uppercase;">Chạm để mở thiệp</p>
+            <img src="photo/png1.png" style="width:80px;height:80px;object-fit:contain;">
+            <p style="color:#f0d080;font-size:1.3rem;font-family:'Corinthia',cursive;letter-spacing:0.15em;">Chạm để mở thiệp</p>
         </div>
         <style>@keyframes pulse{0%,100%{opacity:1;transform:translateY(0)}50%{opacity:0.6;transform:translateY(-6px)}}</style>
     </div>
 
+    <!-- Petal Canvas -->
+    <canvas id="petalCanvas"></canvas>
+
     <!-- Main Mobile Container -->
     <div class="mobile-container relative pb-10">
 
-        <!-- --- SECTION 1: HERO & ENVELOPE --- -->
-        <section class="text-center flex flex-col items-center" style="min-height: 100svh; padding-top: 2rem;">
-            <h2 class="hero-text text-gray-500" style="font-family: 'Dancing Script', cursive; font-size: 1.4rem;">Thư Mời Cưới</h2>
-            <div class="hero-text mb-6" style="width: 60px; height: 1px; background: linear-gradient(to right, transparent, #d4af37, transparent); margin-top: 6px;"></div>
-            <div class="font-script text-brand-text my-1 w-full" style="font-size: clamp(1.6rem, 8vw, 3rem); line-height: 1.4;">
-                <div class="slide-from-left" style="text-align: left; padding-left: 20%;">Hữu An</div>
-                <div class="hero-text" style="font-size: 0.42em; font-family: 'Quicksand', sans-serif; color: #aaa; line-height: 1; display: flex; align-items: center; justify-content: center; gap: 0.6em; margin: 0.3em 0;">
-                    <span>Trưởng nam</span>
-                    <span style="font-family: 'Dancing Script', cursive; font-size: 1.5em; color: #888;">&</span>
-                    <span>Thứ nữ</span>
-                </div>
-                <div class="slide-from-right" style="text-align: right; padding-right: 10%;">Nguyễn Dung</div>
+        <!-- --- SECTION 1: HERO PHOTO + QUOTE --- -->
+        <section style="position:relative;width:100%;height:100svh;overflow:hidden;display:flex;flex-direction:column;">
+            <!-- Ảnh nền -->
+            <img src="photo/1.png" style="width:100%;flex:1;object-fit:cover;object-position:center top;display:block;min-height:0;">
+            <!-- Gradient tối phía dưới ảnh -->
+            <div style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
+
+            <!-- Tên góc trên giữa -->
+            <div style="position:absolute;top:8rem;left:0;width:100%;text-align:center;">
+                <p style="font-family:'Fz-Photograph',cursive;color:#fff;font-size:clamp(2rem,8vw,2.6rem);line-height:1.3;text-shadow:0 2px 8px rgba(0,0,0,0.45);">Hữu An &amp; Nguyễn Dung</p>
             </div>
-            <p class="hero-text font-serif text-lg tracking-widest mt-1 mb-4">29.03.2026</p>
 
-            <div class="flex-1"></div>
-
-            <!-- Interactive Envelope -->
-            <div class="envelope-wrapper" id="invitationEnvelope">
-                <div class="envelope"></div>
-                <div class="flap"></div>
-                <div class="pocket"></div>
-                <div class="pocket-bottom"></div>
-                <div class="letter-clip">
-                    <div class="letter">
-                        <img src="photo/DSC00038.png" alt="Couple">
-                    </div>
-                </div>
-                <!-- Nút nhấn để mở -->
-                <div class="wax-seal" id="openSeal" onclick="openEnvelope()"></div>
+            <!-- Thông tin phía dưới ảnh (overlay) -->
+            <div style="position:absolute;bottom:7.5rem;left:0;width:100%;text-align:center;">
+                <p style="font-family:'Playfair Display',serif;color:#fff;font-size:0.8rem;letter-spacing:0.25em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,0.5);">Lễ Thành Hôn</p>
+                <p style="font-family:'Playfair Display',serif;color:#fff;font-size:0.8rem;letter-spacing:0.18em;margin-top:0.3rem;text-shadow:0 1px 6px rgba(0,0,0,0.5);">Chủ Nhật · 11:00</p>
+                <p style="font-family:'Corinthia',cursive;color:#fff;font-size:2.8rem;margin-top:0.1rem;letter-spacing:0.2em;text-shadow:0 2px 10px rgba(0,0,0,0.5);">29 · 03 · 2026</p>
             </div>
-            
-        </section>
 
-
-        <!-- --- SECTION 2: INVITATION TEXT --- -->
-        <section class="px-6 py-8 text-center bg-white mt-10 shadow-sm border-t border-b border-gray-100">
-            <p class="text-sm font-semibold tracking-wider uppercase mb-1">Trân trọng kính mời</p>
-            <p class="text-xs text-gray-600 mb-6 uppercase">Đến dự lễ thành hôn của gia đình chúng tôi</p>
-
-            <!-- Tên chú rể - lệch trái -->
-            <p class="scroll-slide-left font-script text-brand-red text-left" style="font-size: 2.6rem; line-height: 1.2; margin-left: -0.5rem;">Nguyễn Hữu An</p>
-            <!-- and - căn giữa -->
-            <p class="font-script text-gray-400 my-1 text-center" style="font-size: 1.5rem;">and</p>
-            <!-- Tên cô dâu - lệch phải -->
-            <p class="scroll-slide-right font-script text-brand-red text-right" style="font-size: 2.6rem; line-height: 1.2; margin-right: -0.5rem;">Nguyễn Thị Dung</p>
-
-            <!-- Thông tin cha mẹ -->
-            <div class="flex justify-between items-start mt-6">
-                <div class="scroll-slide-left text-left" style="width: 44%;">
-                    <p class="text-[10px] text-gray-500 uppercase font-semibold mb-1">Nhà Trai</p>
-                    <p class="text-[11px] font-semibold leading-snug whitespace-nowrap">Ông: Nguyễn Hữu Nam</p>
-                    <p class="text-[11px] font-semibold leading-snug whitespace-nowrap">Bà: Lâm Thị Nhung</p>
-                    <p class="text-[10px] text-gray-400 leading-snug mt-1">Khối 15 Nghi Phú - P. Vinh Phú<br>Tỉnh Nghệ An</p>
-                </div>
-                <div class="text-brand-gold flex justify-center pt-1" style="width: 12%;">
-                    <i class="ph-fill ph-heart text-xl"></i>
-                </div>
-                <div class="scroll-slide-right text-right" style="width: 44%;">
-                    <p class="text-[10px] text-gray-500 uppercase font-semibold mb-1">Nhà Gái</p>
-                    <p class="text-[11px] font-semibold leading-snug whitespace-nowrap">Ông: Nguyễn Đình Thông</p>
-                    <p class="text-[11px] font-semibold leading-snug whitespace-nowrap">Bà: Phạm Thị Liên</p>
-                    <p class="text-[10px] text-gray-400 leading-snug mt-1">Xóm Trù Sơn 4 - Xã Bạch Hà<br>Tỉnh Nghệ An</p>
-                </div>
+            <!-- Quote nằm dưới cùng trong section -->
+            <div style="position:absolute;bottom:0;left:0;width:100%;padding:0.8rem 2rem 1rem;text-align:center;background:#fff;">
+                <p style="font-family:'Corinthia',cursive;color:#2d6a8a;font-size:1.85rem;line-height:1.2;">"Hôn nhân là chuyện cả đời,<br>Yêu người vừa ý, cưới người mình thương"</p>
             </div>
         </section>
 
+        <!-- --- SECTION: NHÀ TRAI / NHÀ GÁI --- -->
+        <div style="background:#fff;padding:2rem 0;">
 
-        <!-- --- SECTION 3: SAVE THE DATE (Polaroid Style) --- -->
-        <section class="py-12 relative flex flex-col items-center overflow-hidden">
-            <div class="mb-8 z-10 relative px-6 w-full">
-                <h2 style="font-family: 'Corinthia', cursive; font-size: 3.5rem; line-height: 1; margin-bottom: -0.5rem;">Save The Date</h2>
-                <div class="flex items-center justify-end" style="gap: 0px;">
-                    <p class="font-serif text-brand-red font-bold" style="font-size: 3rem; line-height: 1; transform: translateY(-10px);">29</p>
-                    <p class="font-serif text-brand-red" style="font-size: 3rem; line-height: 1; font-weight: 200;">/</p>
-                    <p class="font-serif text-brand-red font-bold" style="font-size: 3rem; line-height: 1; transform: translateY(10px);">03</p>
+            <!-- Nhà Trai: ảnh trái sát lề, info phải -->
+            <div style="display:flex;align-items:stretch;gap:0.8rem;margin-bottom:0;padding-right:1rem;">
+                <div style="width:52%;overflow:hidden;border-radius:0 8px 8px 0;aspect-ratio:3/4;flex-shrink:0;">
+                    <img src="photo/DSC09893.JPG" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0.5rem 0;text-align:center;">
+                    <p style="font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a3a5c;margin-bottom:0.6rem;font-family:'Philosopher',serif;">Nhà Trai</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.92rem;font-weight:600;color:#2d6a8a;line-height:1.6;">Nguyễn Hữu Nam<br>Lâm Thị Nhung</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.82rem;color:#7aafc8;line-height:1.5;margin-top:0.3rem;">Khối 15 Nghi Phú - P. Vinh Phú<br>Tỉnh Nghệ An</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.86rem;color:#1a3a5c;margin-top:1.2rem;">Chú Rể</p>
+                    <p style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:2rem;line-height:1.1;margin-top:0.3rem;">Hữu An</p>
                 </div>
             </div>
 
-            <!-- Decorative Envelopes & Polaroids -->
-            <div class="relative w-full h-64 flex justify-center mt-4">
-                <!-- Nền phong bì giả -->
-                <div class="absolute bottom-0 w-64 h-32 bg-brand-red rounded-t-lg z-0 opacity-10"></div>
-                
-                <!-- Ảnh Polaroid 1 -->
-                <div class="polaroid polaroid-slide-left z-10" style="left: 10%; top: 10%;">
-                    <img src="photo/DSC00060.png" alt="Pre-wedding 1" class="w-32 h-40 object-cover">
+            <!-- Nhà Gái: info trái, ảnh phải sát lề — cùng width 52% → góc dưới-phải ảnh trai chạm góc trên-phải ảnh gái -->
+            <div style="display:flex;align-items:stretch;gap:0.8rem;padding-left:1rem;">
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0.5rem 0;text-align:center;">
+                    <p style="font-family:'Philosopher',serif;font-weight:700;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a3a5c;margin-bottom:0.6rem;">Nhà Gái</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.92rem;font-weight:600;color:#2d6a8a;line-height:1.6;">Nguyễn Đình Thông<br>Phạm Thị Liên</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.82rem;color:#7aafc8;line-height:1.5;margin-top:0.3rem;">Xóm Trù Sơn 4 - Xã Bạch Hà<br>Tỉnh Nghệ An</p>
+                    <p style="font-family:'Philosopher',serif;font-size:0.86rem;color:#1a3a5c;margin-top:1.2rem;">Cô Dâu</p>
+                    <p style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:2rem;line-height:1.1;margin-top:0.3rem;">Nguyễn Dung</p>
                 </div>
-                <!-- Ảnh Polaroid 2 -->
-                <div class="polaroid polaroid-slide-right z-20" style="right: 10%; top: 20%;">
-                    <img src="photo/DSC00111.png" alt="Pre-wedding 2" class="w-36 h-48 object-cover">
+                <div style="width:52%;overflow:hidden;border-radius:8px 0 0 8px;aspect-ratio:3/4;flex-shrink:0;">
+                    <img src="photo/DSC09966.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
                 </div>
             </div>
+
+        </div>
+
+        <!-- --- SECTION: THƯ MỜI --- -->
+        <div style="background:#fff;padding:2rem 1rem 1.5rem;text-align:center;">
+            <!-- Đường kẻ + Thư Mời -->
+            <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;">
+                <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#2d6a8a);"></div>
+                <p style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:2.8rem;line-height:1;">Thư Mời</p>
+                <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#2d6a8a);"></div>
+            </div>
+
+            <!-- Bạn và người thương -->
+            <p style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:1.6rem;margin-bottom:1rem;">Bạn và Người thương</p>
+
+            <!-- Tham dự lễ cưới -->
+            <p style="font-family:'Philosopher',serif;font-weight:700;font-size:clamp(0.6rem,3.2vw,0.88rem);letter-spacing:0.04em;white-space:nowrap;text-transform:uppercase;color:#1a3a5c;margin-bottom:1.8rem;">Tham dự lễ cưới của Hữu An &amp; Nguyễn Dung</p>
+
+            <!-- 3 ảnh -->
+            <div style="display:flex;gap:0.4rem;align-items:center;">
+                <div style="flex:0.95;overflow:hidden;border-radius:8px;aspect-ratio:2/3;">
+                    <img src="photo/1.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                </div>
+                <div style="flex:1.1;overflow:hidden;border-radius:8px;aspect-ratio:2/3;">
+                    <img src="photo/DSC09503.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                </div>
+                <div style="flex:0.95;overflow:hidden;border-radius:8px;aspect-ratio:2/3;">
+                    <img src="photo/DSC09440.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- --- SECTION: TIỆC CƯỚI CARDS --- -->
+        <section class="px-4 py-6 bg-white space-y-4">
+
+            <!-- Card Nhà Trai -->
+            <div class="hover-lift" style="background:linear-gradient(135deg,#dde9f0 0%,#eaf3f8 100%);border-radius:16px;padding:1.5rem;text-align:center;">
+                <p style="font-family:'Philosopher',serif;font-weight:700;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a3a5c;margin-bottom:0.3rem;">Tiệc Cưới Nhà Trai</p>
+                <p style="font-size:0.78rem;color:#2d6a8a;margin-bottom:0.2rem;">Chủ Nhật | 10:00</p>
+                <p style="font-family:'Philosopher',serif;font-size:1.3rem;font-weight:700;color:#1a3a5c;letter-spacing:0.15em;margin-bottom:0.2rem;">29 . 03 . 2026</p>
+                <p style="font-size:0.7rem;color:#7aafc8;font-style:italic;margin-bottom:1rem;">(Tức ngày 11 Tháng 02 Năm Bính Ngọ)</p>
+                <p style="font-family:'Philosopher',serif;font-size:0.9rem;font-weight:700;color:#1a3a5c;margin-bottom:0.2rem;">Tại Tư Gia Nhà Trai</p>
+                <p style="font-size:0.75rem;color:#2d6a8a;line-height:1.6;margin-bottom:1.2rem;">Khối 15 Nghi Phú - P. Vinh Phú<br>Tỉnh Nghệ An</p>
+                <!-- Buttons -->
+                <div style="display:flex;gap:0.6rem;margin-bottom:1.2rem;">
+                    <button onclick="document.getElementById('rsvpSection').scrollIntoView({behavior:'smooth'})" style="flex:1;background:#fff;border:1.5px solid #2d6a8a;color:#1a3a5c;font-family:'Philosopher',serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem;border-radius:8px;">Xác Nhận Tham Dự</button>
+                    <button onclick="openGiftPopup()" style="flex:1;background:#1a3a5c;border:none;color:#fff;font-family:'Philosopher',serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem;border-radius:8px;">Gửi Mừng Cưới</button>
+                </div>
+                <!-- Countdown -->
+                <div style="display:flex;justify-content:center;gap:0.8rem;margin-bottom:1.2rem;">
+                    <div style="text-align:center;"><p id="nt-days" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Ngày</p></div>
+                    <div style="text-align:center;"><p id="nt-hours" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Giờ</p></div>
+                    <div style="text-align:center;"><p id="nt-mins" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Phút</p></div>
+                    <div style="text-align:center;"><p id="nt-secs" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Giây</p></div>
+                </div>
+            </div>
+
+            <!-- Card Nhà Gái -->
+            <div class="hover-lift" style="background:linear-gradient(135deg,#dde9f0 0%,#eaf3f8 100%);border-radius:16px;padding:1.5rem;text-align:center;">
+                <p style="font-family:'Philosopher',serif;font-weight:700;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a3a5c;margin-bottom:0.3rem;">Tiệc Cưới Nhà Gái</p>
+                <p style="font-size:0.78rem;color:#2d6a8a;margin-bottom:0.2rem;">Thứ 7 | 16:30</p>
+                <p style="font-family:'Philosopher',serif;font-size:1.3rem;font-weight:700;color:#1a3a5c;letter-spacing:0.15em;margin-bottom:0.2rem;">28 . 03 . 2026</p>
+                <p style="font-size:0.7rem;color:#7aafc8;font-style:italic;margin-bottom:1rem;">(Tức ngày 10 Tháng 02 Năm Bính Ngọ)</p>
+                <p style="font-family:'Philosopher',serif;font-size:0.9rem;font-weight:700;color:#1a3a5c;margin-bottom:0.2rem;">Tại Tư Gia Nhà Gái</p>
+                <p style="font-size:0.75rem;color:#2d6a8a;line-height:1.6;margin-bottom:1.2rem;">Xóm Trù Sơn 4 - Xã Bạch Hà<br>Tỉnh Nghệ An</p>
+                <!-- Buttons -->
+                <div style="display:flex;gap:0.6rem;margin-bottom:1.2rem;">
+                    <button onclick="document.getElementById('rsvpSection').scrollIntoView({behavior:'smooth'})" style="flex:1;background:#fff;border:1.5px solid #2d6a8a;color:#1a3a5c;font-family:'Philosopher',serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem;border-radius:8px;">Xác Nhận Tham Dự</button>
+                    <button onclick="openGiftPopup()" style="flex:1;background:#1a3a5c;border:none;color:#fff;font-family:'Philosopher',serif;font-weight:700;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.6rem;border-radius:8px;">Gửi Mừng Cưới</button>
+                </div>
+                <!-- Countdown -->
+                <div style="display:flex;justify-content:center;gap:0.8rem;margin-bottom:1.2rem;">
+                    <div style="text-align:center;"><p id="ng-days" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Ngày</p></div>
+                    <div style="text-align:center;"><p id="ng-hours" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Giờ</p></div>
+                    <div style="text-align:center;"><p id="ng-mins" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Phút</p></div>
+                    <div style="text-align:center;"><p id="ng-secs" style="font-family:'Philosopher',serif;font-size:1.6rem;font-weight:700;color:#1a3a5c;line-height:1;background:#fff;border-radius:8px;padding:0.4rem 0.7rem;">00</p><p style="font-size:0.65rem;color:#2d6a8a;margin-top:0.3rem;">Giây</p></div>
+                </div>
+            </div>
+
         </section>
 
+        <!-- --- SECTION 4: LỄ THÀNH HÔN --- -->
+        <div class="scroll-fade-up text-center py-4 px-5 bg-white">
+            <div style="height:1px;background:linear-gradient(to right,transparent,#1a3a5c,transparent);margin-bottom:1rem;"></div>
 
-        <!-- --- SECTION 4: EVENT TIMELINE (Cards) --- -->
-        <section class="px-5 py-8 bg-[#f5f0e6]">
-            <!-- Card 1: Lễ Thành Hôn -->
-            <div class="scroll-fade-up bg-white rounded-lg p-5 mb-5 shadow-sm border-l-4 border-brand-red relative">
-                <i class="ph ph-house text-brand-red absolute top-5 right-5 text-2xl opacity-20"></i>
-                <h3 class="scroll-fade-up font-bold text-sm tracking-wider uppercase mb-3" data-delay="100">Lễ Thành Hôn</h3>
-                <div class="scroll-fade-up flex items-start mb-2" data-delay="200">
-                    <i class="ph ph-clock text-brand-gold mt-1 mr-2 text-lg"></i>
-                    <div>
-                        <p class="font-semibold text-brand-red">11:00 - Chủ Nhật</p>
-                        <p class="font-serif text-lg">29.03.2026</p>
-                        <p class="text-[10px] text-gray-500 mt-1">(Tức Ngày 11 Tháng 02 Năm Bính Ngọ)</p>
-                    </div>
+            <p style="font-family:'Philosopher',serif;font-weight:700;font-size:1rem;letter-spacing:0.25em;text-transform:uppercase;color:#1a3a5c;margin-bottom:0.4rem;">Lễ Thành Hôn</p>
+            <p style="font-family:'Philosopher',serif;font-size:0.9rem;color:#666;margin-bottom:1rem;">Vào Chủ Nhật · 11:00</p>
+
+            <div style="display:flex;align-items:center;justify-content:center;gap:1.2rem;margin-bottom:0.8rem;">
+                <div style="text-align:right;">
+                    <p style="font-family:'Philosopher',serif;font-size:0.75rem;color:#888;margin-bottom:0.2rem;letter-spacing:0.1em;text-transform:uppercase;">Tháng</p>
+                    <p style="font-family:'Philosopher',serif;font-size:1.4rem;font-weight:600;color:#1a3a5c;">03</p>
                 </div>
-                <div class="scroll-fade-up flex items-start mt-4 border-t border-gray-100 pt-3" data-delay="350">
-                    <i class="ph ph-map-pin text-gray-400 mt-0.5 mr-2 text-lg"></i>
-                    <div>
-                        <p class="text-sm font-semibold text-gray-700">Hội trường Hoa Sen - Tầng 2</p>
-                        <p class="text-xs text-gray-500 mt-1">Khách sạn Sài Gòn Kim Liên</p>
-                        <p class="text-xs text-gray-500">Số 25 Quang Trung - P. Thành Vinh - Tỉnh Nghệ An</p>
-                    </div>
+                <div style="width:1px;height:3.5rem;background:#c0c8d8;"></div>
+                <p style="font-family:'Corinthia',cursive;font-size:6rem;color:#1a3a5c;line-height:1;">29</p>
+                <div style="width:1px;height:3.5rem;background:#c0c8d8;"></div>
+                <div style="text-align:left;">
+                    <p style="font-family:'Philosopher',serif;font-size:0.75rem;color:#888;margin-bottom:0.2rem;letter-spacing:0.1em;text-transform:uppercase;">Năm</p>
+                    <p style="font-family:'Philosopher',serif;font-size:1.4rem;font-weight:600;color:#1a3a5c;">2026</p>
                 </div>
             </div>
 
-        </section>
+            <p style="font-family:'Philosopher',serif;font-size:0.8rem;color:#999;font-style:italic;">(Tức Ngày 11 Tháng 02 Năm Bính Ngọ)</p>
+
+            <div style="height:1px;background:linear-gradient(to right,transparent,#1a3a5c,transparent);margin-top:1rem;"></div>
+        </div>
 
 
         <!-- --- SECTION 5: CALENDAR --- -->
         <section class="px-6 py-10 bg-white text-center">
-            <h2 class="font-script text-3xl text-brand-text mb-1">Tháng 3</h2>
-            <p class="font-serif text-xl mb-6 text-brand-gold">2026</p>
+            <img src="photo/save.png" style="width:120px;height:auto;display:block;margin:0 auto 1rem;">
+            <h2 class="font-script text-3xl mb-6" style="color:#1a3a5c;">Tháng 3 / 2026</h2>
 
-            <div class="border border-gray-200 rounded-lg p-4 max-w-[300px] mx-auto">
+            <div class="border border-gray-200 rounded-lg p-4 w-full">
                 <div class="calendar-grid text-xs font-bold text-brand-red mb-3 border-b border-gray-100 pb-2">
                     <div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div><div>CN</div>
                 </div>
@@ -660,29 +881,51 @@
 
 
         <!-- --- SECTION 6: MAP / LOCATION --- -->
-        <section class="px-5 py-10 bg-[#f9f7f2]">
-            <h2 class="font-script text-4xl text-center mb-6">Địa Điểm Tổ Chức</h2>
-            
-            <div class="bg-white p-2 rounded-xl shadow-md">
-                <div class="w-full rounded-lg overflow-hidden" style="height: 220px;">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.0!2d105.6869!3d18.6716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139cdb2c8a7c155%3A0xef3fb2d1e69c8b31!2zS2jDoWNoIHPhuqFuIFPDoGkgR8OybiBLaW0gTGnDqm4!5e0!3m2!1svi!2svn!4v1700000000000!5m2!1svi!2svn"
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+        <section class="px-5 py-4 bg-white">
+            <!-- Khung vòm -->
+            <div style="background:#dde9f0;border-radius:50% 50% 12px 12px / 18% 18% 12px 12px;padding:1.2rem 1.5rem 1.5rem;text-align:center;">
+                <!-- Icon tim -->
+                <div style="font-size:1.8rem;margin-bottom:0.5rem;">❤️</div>
+
+                <!-- Tiêu đề -->
+                <h2 class="shimmer-text" style="font-family:'Fz-Photograph',cursive;font-size:2rem;margin-bottom:1.5rem;">Địa điểm tổ chức</h2>
+
+                <!-- Nhà Trai -->
+                <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.4rem;">
+                    <i class="ph-fill ph-map-pin" style="color:#1a3a5c;font-size:1.6rem;flex-shrink:0;"></i>
+                    <div style="text-align:left;flex:1;">
+                        <p style="font-family:'Philosopher',serif;font-weight:700;font-size:0.95rem;color:#1a3a5c;">Lễ Thành Hôn</p>
+                        <p style="font-size:0.75rem;color:#2d6a8a;margin-top:0.1rem;">Hội trường Hoa Sen - Tầng 2<br>Khách sạn Sài Gòn Kim Liên, Số 25 Quang Trung - P. Thành Vinh - Tỉnh Nghệ An</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl/rvDRQQE1K72KbKi99" target="_blank" style="flex-shrink:0;border:1.5px solid #1a3a5c;border-radius:20px;padding:0.3rem 0.8rem;font-family:'Philosopher',serif;font-size:0.7rem;font-weight:700;color:#1a3a5c;white-space:nowrap;text-decoration:none;">Xem Chỉ Đường</a>
                 </div>
-                <a href="https://maps.app.goo.gl/rvDRQQE1K72KbKi99" target="_blank"
-                   class="flex items-center justify-center gap-1 mt-2 mb-1 text-blue-600 text-xs font-bold py-1">
-                    <i class="ph-fill ph-navigation-arrow"></i> Xem bản đồ lớn
-                </a>
+
+                <!-- Divider -->
+                <div style="height:1px;background:#c0d4e0;margin:0.8rem 0;"></div>
+
+                <!-- Nhà Gái -->
+                <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.5rem;">
+                    <i class="ph-fill ph-map-pin" style="color:#1a3a5c;font-size:1.6rem;flex-shrink:0;"></i>
+                    <div style="text-align:left;flex:1;">
+                        <p style="font-family:'Philosopher',serif;font-weight:700;font-size:0.95rem;color:#1a3a5c;">Nhà Gái</p>
+                        <p style="font-size:0.75rem;color:#2d6a8a;margin-top:0.1rem;">Xóm Trù Sơn 4 - Xã Bạch Hà, Tỉnh Nghệ An</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl/wMWmZq2Sb3ichRAn7" target="_blank" style="flex-shrink:0;border:1.5px solid #1a3a5c;border-radius:20px;padding:0.3rem 0.8rem;font-family:'Philosopher',serif;font-size:0.7rem;font-weight:700;color:#1a3a5c;white-space:nowrap;text-decoration:none;">Xem Chỉ Đường</a>
+                </div>
+
+                <!-- Tên cặp đôi -->
+                <p style="font-family:'Fz-Photograph',cursive;color:#1a3a5c;font-size:1.8rem;margin-bottom:1.2rem;">Hữu An ❤️ Nguyễn Dung</p>
+
+                <!-- Button gửi lời chúc -->
+                <button onclick="openWishPopup()" class="btn-ripple" style="width:100%;border:2px solid #1a3a5c;background:transparent;color:#1a3a5c;font-family:'Philosopher',serif;font-weight:700;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.8rem;border-radius:8px;">Gửi Lời Chúc Mừng Cưới</button>
             </div>
         </section>
 
         <!-- Section Divider -->
-        <div class="section-divider"></div>
+        <div class="divider-glow"></div>
 
         <!-- --- SECTION 7: RSVP FORM --- -->
-        <section class="px-6 py-4">
+        <section id="rsvpSection" class="px-6 py-4">
             <h2 class="font-script text-4xl text-center mb-6 text-brand-text rsvp-fade-in">Xác Nhận Tham Dự</h2>
 
             <form class="space-y-4" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã xác nhận tham dự!');">
@@ -717,155 +960,134 @@
                         <li onclick="selectAttendance('no','Rất tiếc, tôi không thể đến')" class="custom-select-item">Rất tiếc, tôi không thể đến</li>
                     </ul>
                 </div>
+                <!-- Custom dropdown tham dự tiệc nào -->
+                <div class="custom-select-wrapper rsvp-slide-left" id="partyWrapper">
+                    <input type="hidden" name="party" id="partyValue" value="">
+                    <button type="button" class="custom-select-btn" onclick="toggleParty()">
+                        <span id="partyLabel" style="color:#9ca3af;">Tham dự tiệc ...</span>
+                        <i class="ph ph-caret-down custom-select-arrow"></i>
+                    </button>
+                    <ul class="custom-select-list" id="partyList">
+                        <li onclick="selectParty('nhagai','Tiệc Nhà Gái')" class="custom-select-item">Tiệc Nhà Gái</li>
+                        <li onclick="selectParty('lethanhon','Lễ Thành Hôn')" class="custom-select-item">Lễ Thành Hôn</li>
+                        <li onclick="selectParty('ca2','Cả 2')" class="custom-select-item">Cả 2 tiệc</li>
+                    </ul>
+                </div>
 
-                <button type="submit" class="rsvp-fade-in w-full bg-brand-red text-white font-bold py-3 px-4 rounded-lg mt-4 shadow-md hover:bg-[#7b0a18] transition-colors">
+                <button type="submit" class="btn-ripple rsvp-fade-in w-full bg-brand-red text-white font-bold py-3 px-4 rounded-lg mt-4 shadow-md hover:bg-[#7b0a18] transition-colors">
                     GỬI NGAY
                 </button>
             </form>
         </section>
 
-        <!-- --- SECTION 8: WISHES / GIFTS --- -->
-        <section class="px-6 py-8 text-center bg-white mt-4 border-y border-gray-100">
-            <h2 class="font-script text-3xl mb-4">Gửi Mừng Cưới</h2>
-            <div class="flex justify-center items-center space-x-6">
-                <button class="flex flex-col items-center group" onclick="openGiftPopup()">
-                    <div class="w-16 h-16 rounded-full bg-[#f9f7f2] border border-[#e5dfd3] flex items-center justify-center mb-2 group-hover:bg-brand-red group-hover:border-brand-red transition-all">
-                        <i class="ph ph-envelope-simple text-3xl text-brand-gold group-hover:text-white transition-colors"></i>
-                    </div>
-                    <span class="text-xs font-semibold text-gray-600">Gửi Quà</span>
-                </button>
-                <button class="flex flex-col items-center group" onclick="openWishPopup()">
-                    <div class="w-16 h-16 rounded-full bg-[#f9f7f2] border border-[#e5dfd3] flex items-center justify-center mb-2 group-hover:bg-brand-red group-hover:border-brand-red transition-all">
-                        <i class="ph ph-pencil-simple-line text-3xl text-brand-gold group-hover:text-white transition-colors"></i>
-                    </div>
-                    <span class="text-xs font-semibold text-gray-600">Lời Chúc</span>
-                </button>
-            </div>
-        </section>
 
         <!-- POPUP: Gửi Quà / QR Code -->
         <div id="giftPopup" style="display:none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onclick="if(event.target===this)closeGiftPopup()">
-            <div class="bg-white rounded-2xl shadow-2xl mx-4 p-6 w-full max-w-sm text-center">
-                <h3 class="font-script text-2xl mb-1">Mừng Cưới</h3>
-                <p class="text-xs text-gray-500 mb-4">Quét mã QR để chuyển khoản</p>
-                <div class="flex flex-col gap-4">
-                    <!-- Nhà Trai -->
-                    <div class="border border-gray-100 rounded-xl p-3">
-                        <p class="text-xs font-bold text-brand-red uppercase mb-2">Nhà Trai</p>
-                        <p class="text-sm font-semibold">Nguyễn Hữu An</p>
-                        <p class="text-xs text-gray-500 mb-2">Vietcombank - 1234567890</p>
-                        <div class="w-32 h-32 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
-                            <i class="ph ph-qr-code text-5xl text-gray-400"></i>
+            <div style="background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.25);margin:1rem;padding:1.5rem 1.2rem 1.2rem;width:100%;max-width:400px;position:relative;">
+                <!-- Nút đóng -->
+                <button onclick="closeGiftPopup()" style="position:absolute;top:0.8rem;right:1rem;background:none;border:none;font-size:1.3rem;color:#999;cursor:pointer;line-height:1;">✕</button>
+
+                <!-- Tiêu đề -->
+                <div style="text-align:center;margin-bottom:0.2rem;">
+                    <p style="font-family:'Fz-Photograph',cursive;color:#1a3a5c;font-size:2.2rem;line-height:1.1;margin:0;">Hộp mừng cưới</p>
+                </div>
+                <p style="text-align:center;font-family:'Philosopher',serif;font-size:0.85rem;color:#555;margin:0 0 1.2rem;">Vợ chồng xin cảm ơn tất cả tình cảm<br>của mọi người ♥</p>
+
+                <!-- 2 cột QR -->
+                <div style="display:flex;gap:0.8rem;">
+                    <!-- Chú Rể -->
+                    <div style="flex:1;border:1.5px solid #d4e6f1;border-radius:14px;padding:0.9rem 0.6rem;text-align:center;">
+                        <p style="font-family:'Philosopher',serif;font-weight:700;font-size:0.8rem;color:#1a3a5c;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 0.5rem;">Mừng cưới đến<br>Chú Rể</p>
+                        <!-- QR placeholder - thay bằng <img src="qr-chure.png"> khi có ảnh thật -->
+                        <div style="width:100%;aspect-ratio:1;background:#f0f4f8;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:0.6rem;" id="qrGroomBox">
+                            <i class="ph ph-qr-code" style="font-size:3.5rem;color:#2d6a8a;"></i>
+                        </div>
+                        <p style="font-family:'Philosopher',serif;font-size:0.78rem;font-weight:600;color:#1a3a5c;margin:0 0 0.1rem;">Nguyễn Hữu An</p>
+                        <p style="font-size:0.7rem;color:#555;margin:0 0 0.1rem;">123456789</p>
+                        <p style="font-size:0.7rem;color:#555;margin:0 0 0.7rem;">Ngân Hàng Vietcombank</p>
+                        <div style="display:flex;gap:0.4rem;">
+                            <button onclick="downloadQR('groom')" style="flex:1;padding:0.4rem 0;border:1.5px solid #2d6a8a;border-radius:7px;background:#fff;color:#2d6a8a;font-size:0.7rem;font-family:'Philosopher',serif;font-weight:600;cursor:pointer;">Tải QR</button>
+                            <button onclick="copySTK('QRQG000010179215301','groom')" style="flex:1;padding:0.4rem 0;border:1.5px solid #2d6a8a;border-radius:7px;background:#fff;color:#2d6a8a;font-size:0.7rem;font-family:'Philosopher',serif;font-weight:600;cursor:pointer;" id="copyGroomBtn">Coppy STK</button>
                         </div>
                     </div>
-                    <!-- Nhà Gái -->
-                    <div class="border border-gray-100 rounded-xl p-3">
-                        <p class="text-xs font-bold text-brand-red uppercase mb-2">Nhà Gái</p>
-                        <p class="text-sm font-semibold">Nguyễn Thị Dung</p>
-                        <p class="text-xs text-gray-500 mb-2">Vietcombank - 0987654321</p>
-                        <div class="w-32 h-32 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
-                            <i class="ph ph-qr-code text-5xl text-gray-400"></i>
+                    <!-- Cô Dâu -->
+                    <div style="flex:1;border:1.5px solid #d4e6f1;border-radius:14px;padding:0.9rem 0.6rem;text-align:center;">
+                        <p style="font-family:'Philosopher',serif;font-weight:700;font-size:0.8rem;color:#1a3a5c;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 0.5rem;">Mừng cưới đến<br>Cô Dâu</p>
+                        <div style="width:100%;aspect-ratio:1;background:#f0f4f8;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:0.6rem;" id="qrBrideBox">
+                            <i class="ph ph-qr-code" style="font-size:3.5rem;color:#2d6a8a;"></i>
+                        </div>
+                        <p style="font-family:'Philosopher',serif;font-size:0.78rem;font-weight:600;color:#1a3a5c;margin:0 0 0.1rem;">Nguyễn Thị Dung</p>
+                        <p style="font-size:0.7rem;color:#555;margin:0 0 0.1rem;">0348123529</p>
+                        <p style="font-size:0.7rem;color:#555;margin:0 0 0.7rem;">Ngân Hàng VietinBank</p>
+                        <div style="display:flex;gap:0.4rem;">
+                            <button onclick="downloadQR('bride')" style="flex:1;padding:0.4rem 0;border:1.5px solid #2d6a8a;border-radius:7px;background:#fff;color:#2d6a8a;font-size:0.7rem;font-family:'Philosopher',serif;font-weight:600;cursor:pointer;">Tải QR</button>
+                            <button onclick="copySTK('101.7411262','bride')" style="flex:1;padding:0.4rem 0;border:1.5px solid #2d6a8a;border-radius:7px;background:#fff;color:#2d6a8a;font-size:0.7rem;font-family:'Philosopher',serif;font-weight:600;cursor:pointer;" id="copyBrideBtn">Coppy STK</button>
                         </div>
                     </div>
                 </div>
-                <button onclick="closeGiftPopup()" class="mt-5 w-full bg-brand-red text-white font-bold py-2 rounded-lg">Đóng</button>
             </div>
         </div>
 
         <!-- POPUP: Lời Chúc -->
         <div id="wishPopup" style="display:none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onclick="if(event.target===this)closeWishPopup()">
-            <div class="bg-white rounded-2xl shadow-2xl mx-4 p-6 w-full max-w-sm">
-                <h3 class="font-script text-2xl text-center mb-4">Lời Chúc</h3>
-                <form onsubmit="submitWish(event)" class="space-y-3 mb-4">
-                    <input type="text" id="wishName" placeholder="Tên của bạn" required class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-brand-gold">
-                    <textarea id="wishText" placeholder="Viết lời chúc..." required rows="3" class="w-full px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-brand-gold resize-none"></textarea>
-                    <button type="submit" class="w-full bg-brand-red text-white font-bold py-2 rounded-lg">Gửi Lời Chúc</button>
+            <div style="background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.2);margin:1rem;padding:1.5rem;width:100%;max-width:360px;">
+                <h3 style="font-family:'Fz-Photograph',cursive;color:#1a3a5c;font-size:2rem;text-align:center;margin-bottom:1.2rem;">Lời Chúc</h3>
+                <form onsubmit="submitWish(event)" style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1rem;">
+                    <input type="text" id="wishName" placeholder="Tên của bạn" required
+                        style="width:100%;padding:0.7rem 1rem;border:1.5px solid #c0d4e0;border-radius:10px;font-family:'Philosopher',serif;font-size:0.9rem;color:#1a3a5c;outline:none;box-sizing:border-box;">
+                    <textarea id="wishText" placeholder="Viết lời chúc..." required rows="4"
+                        style="width:100%;padding:0.7rem 1rem;border:1.5px solid #c0d4e0;border-radius:10px;font-family:'Philosopher',serif;font-size:0.9rem;color:#1a3a5c;outline:none;resize:none;box-sizing:border-box;"></textarea>
+                    <button type="submit" style="width:100%;background:#1a3a5c;color:#fff;font-family:'Philosopher',serif;font-weight:700;font-size:0.9rem;letter-spacing:0.05em;padding:0.75rem;border:none;border-radius:10px;cursor:pointer;">Gửi Lời Chúc</button>
                 </form>
-                <!-- Danh sách lời chúc -->
-                <div id="wishList" class="space-y-2 max-h-48 overflow-y-auto"></div>
-                <button onclick="closeWishPopup()" class="mt-3 w-full border border-gray-200 text-gray-500 text-sm py-2 rounded-lg">Đóng</button>
+                <div id="wishList" style="max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:0.8rem;"></div>
+                <button onclick="closeWishPopup()" style="width:100%;background:transparent;border:1.5px solid #c0d4e0;color:#2d6a8a;font-family:'Philosopher',serif;font-size:0.85rem;padding:0.6rem;border-radius:10px;cursor:pointer;">Đóng</button>
             </div>
         </div>
 
 
         <!-- --- SECTION 9: PHOTO GALLERY --- -->
-        <section class="pt-8 pb-20 text-white" style="background: linear-gradient(160deg, #2d0a12 0%, #1a0a1e 50%, #0d1a2e 100%);">
-            <h2 class="font-script text-4xl text-center mb-6" style="color: #e8c97a;">Album Cưới</h2>
-
-            <!-- Main Featured Image -->
-            <div class="px-4 mb-4">
-                <div class="w-full h-[400px] rounded-xl overflow-hidden shadow-2xl relative" style="background:#1a0a1e;">
-                    <img id="mainGalleryImage" src="photo/DSC00131.png" alt="Main Wedding Photo" class="w-full h-full object-cover object-top gallery-main-img">
-                    <!-- Overlay gradient for text -->
-                    <div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <p class="font-script text-2xl">Hữu An & Nguyễn Dung</p>
-                        <p class="font-serif text-sm opacity-80">29.03.2026</p>
-                    </div>
-                </div>
+        <section style="background:#fff;padding:1.5rem 0.8rem 2rem;">
+            <!-- Tiêu đề -->
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;padding:0 0.4rem;">
+                <p class="shimmer-text" style="font-family:'Fz-Photograph',cursive;font-size:1.8rem;white-space:nowrap;">Album ảnh cưới</p>
+                <span style="color:#e05a7a;font-size:1rem;">♥</span>
+                <div style="flex:1;height:1px;background:linear-gradient(to right,#1a3a5c,transparent);"></div>
             </div>
 
-            <!-- Thumbnail Scroll -->
-            <div class="flex overflow-x-auto space-x-3 px-4 pb-4 gallery-scrollbar snap-x">
-                <!-- Thumbnail 1 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00131.png')">
-                    <img src="photo/DSC00131.png" class="w-20 h-20 object-cover">
+            <!-- 2 cột bằng nhau, trái 4 ảnh, phải 5 ảnh -->
+            <div style="display:flex;gap:0.4rem;align-items:flex-start;">
+                <!-- Cột trái: 4 ảnh, aspect-ratio cao hơn -->
+                <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;">
+                    <div class="gallery-img-wrap"><img src="photo/DSC00045.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/5;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00075.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/5;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00131.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/5;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00159.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/5;"></div>
                 </div>
-                <!-- Thumbnail 2 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00045.png')">
-                    <img src="photo/DSC00045.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 3 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC09998.png')">
-                    <img src="photo/DSC09998.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 4 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00175.png')">
-                    <img src="photo/DSC00175.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 5 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00060.png')">
-                    <img src="photo/DSC00060.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 6 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC09943.png')">
-                    <img src="photo/DSC09943.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 7 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00159.png')">
-                    <img src="photo/DSC00159.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 8 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00038.png')">
-                    <img src="photo/DSC00038.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 9 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00110.png')">
-                    <img src="photo/DSC00110.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 10 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC09966.png')">
-                    <img src="photo/DSC09966.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 11 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00075.png')">
-                    <img src="photo/DSC00075.png" class="w-20 h-20 object-cover">
-                </div>
-                <!-- Thumbnail 12 -->
-                <div class="snap-start shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-colors" onclick="changeMainImage('photo/DSC00111.png')">
-                    <img src="photo/DSC00111.png" class="w-20 h-20 object-cover">
+                <!-- Cột phải: 5 ảnh, aspect-ratio thấp hơn -->
+                <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;">
+                    <div class="gallery-img-wrap"><img src="photo/DSC00038.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/4;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00060.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/4;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00110.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/4;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00111.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/4;"></div>
+                    <div class="gallery-img-wrap"><img src="photo/DSC00175.png" style="width:100%;display:block;object-fit:cover;aspect-ratio:3/4;"></div>
                 </div>
             </div>
-            
-            <div class="text-center mt-10">
-                <p class="font-script text-3xl text-brand-gold mb-2">Thank You</p>
-                <p class="text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.4);">Hẹn gặp lại bạn trong ngày vui của chúng mình!</p>
-            </div>
+        </section>
 
+        <!-- THANK YOU SECTION -->
+        <section style="width:100%;background:#faf8f5;padding:2.5rem 1.2rem 2.5rem;text-align:center;">
+            <div class="thankyou-card" style="position:relative;max-width:420px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+                <img src="photo/DSC09598.png" style="width:100%;display:block;object-fit:cover;">
+                <!-- Overlay nền trắng mờ ở dưới -->
+                <div style="position:absolute;bottom:0;left:0;right:0;padding:1.4rem 1.2rem 1.4rem;background:linear-gradient(to top, rgba(255,255,255,0.92) 70%, rgba(255,255,255,0) 100%);">
+                    <p style="font-family:'Fz-Photograph',cursive;font-size:2.2rem;color:#1a3a5c;line-height:1.1;margin:0 0 0.3rem;">thank you</p>
+                    <p style="font-family:'Dancing Script',cursive;font-size:1.25rem;color:#2d6a8a;margin:0;">Rất hân hạnh được đón tiếp!</p>
+                </div>
+            </div>
         </section>
 
         <!-- FLOATING MUSIC BUTTON -->
-        <button id="musicToggle" class="floating-music text-brand-text flex items-center justify-center w-12 h-12" onclick="toggleMusic()">
+        <button id="musicToggle" class="floating-music text-brand-text flex items-center justify-center w-12 h-12" onclick="toggleMusic()" style="position:relative;">
             <i class="ph ph-music-notes text-2xl" id="musicIcon"></i>
         </button>
         
@@ -957,6 +1179,26 @@
         }
         function closeGiftPopup() {
             document.getElementById('giftPopup').style.display = 'none';
+        }
+        function copySTK(stk, who) {
+            navigator.clipboard.writeText(stk).then(() => {
+                const btnId = who === 'groom' ? 'copyGroomBtn' : 'copyBrideBtn';
+                const btn = document.getElementById(btnId);
+                const orig = btn.textContent;
+                btn.textContent = 'Đã copy!';
+                btn.style.background = '#2d6a8a';
+                btn.style.color = '#fff';
+                setTimeout(() => { btn.textContent = orig; btn.style.background = '#fff'; btn.style.color = '#2d6a8a'; }, 1500);
+            });
+        }
+        function downloadQR(who) {
+            const boxId = who === 'groom' ? 'qrGroomBox' : 'qrBrideBox';
+            const img = document.querySelector('#' + boxId + ' img');
+            if (!img) { alert('Chưa có ảnh QR để tải.'); return; }
+            const a = document.createElement('a');
+            a.href = img.src;
+            a.download = 'qr-' + who + '.png';
+            a.click();
         }
 
         // --- Wish Popup ---
@@ -1069,8 +1311,21 @@
             event.target.classList.add('selected');
             document.getElementById('attendanceWrapper').classList.remove('open');
         }
+        function toggleParty() {
+            document.getElementById('partyWrapper').classList.toggle('open');
+        }
+        function selectParty(value, label) {
+            document.getElementById('partyValue').value = value;
+            const lbl = document.getElementById('partyLabel');
+            lbl.textContent = label;
+            lbl.style.color = '#4b5563';
+            document.querySelectorAll('#partyList .custom-select-item').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.getElementById('partyWrapper').classList.remove('open');
+        }
+
         document.addEventListener('click', function(e) {
-            ['attendanceWrapper', 'guestWrapper'].forEach(id => {
+            ['attendanceWrapper', 'guestWrapper', 'partyWrapper'].forEach(id => {
                 const wrapper = document.getElementById(id);
                 if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('open');
             });
@@ -1122,6 +1377,225 @@
             @keyframes spin { 100% { transform: rotate(360deg); } }
         `;
         document.head.appendChild(style);
+
+        // === SNOW FALL ===
+        (function() {
+            const canvas = document.getElementById('petalCanvas');
+            const ctx = canvas.getContext('2d');
+            let W, H;
+            function resize() {
+                W = canvas.width  = Math.min(window.innerWidth, 414);
+                H = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const flakes = [];
+            const MAX = 60;
+
+            function createFlake() {
+                return {
+                    x: Math.random() * W,
+                    y: -10,
+                    r: 1.2 + Math.random() * 2.8,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: 0.5 + Math.random() * 1.0,
+                    opacity: 0.4 + Math.random() * 0.5,
+                    swing: Math.random() * Math.PI * 2,
+                    swingSpeed: 0.008 + Math.random() * 0.012,
+                };
+            }
+
+            for (let i = 0; i < MAX; i++) {
+                const f = createFlake();
+                f.y = Math.random() * H;
+                flakes.push(f);
+            }
+
+            function drawFlake(f) {
+                ctx.save();
+                ctx.globalAlpha = f.opacity;
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = 'rgba(255,255,255,0.8)';
+                ctx.shadowBlur = f.r * 2;
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            let lastSpawn = 0;
+            function animate(ts) {
+                ctx.clearRect(0, 0, W, H);
+                if (ts - lastSpawn > 300 && flakes.length < MAX) {
+                    flakes.push(createFlake());
+                    lastSpawn = ts;
+                }
+                for (let i = flakes.length - 1; i >= 0; i--) {
+                    const f = flakes[i];
+                    f.swing += f.swingSpeed;
+                    f.x += f.vx + Math.sin(f.swing) * 0.4;
+                    f.y += f.vy;
+                    drawFlake(f);
+                    if (f.y > H + 10) {
+                        flakes.splice(i, 1);
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        })();
+
+        // === BUTTON RIPPLE ===
+        document.querySelectorAll('.btn-ripple').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-effect';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+                btn.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 700);
+            });
+        });
+
+        // === MUSIC PULSE RING ===
+        const origPlayMusic = playMusic;
+        function addMusicPulse() {
+            const btn = document.getElementById('musicToggle');
+            btn.classList.add('music-pulse');
+        }
+        function removeMusicPulse() {
+            const btn = document.getElementById('musicToggle');
+            btn.classList.remove('music-pulse');
+        }
+
+        // Patch playMusic/pauseMusic to add pulse
+        const _origPlay = bgMusic.play.bind(bgMusic);
+        document.getElementById('musicToggle').addEventListener('click', function() {
+            setTimeout(() => {
+                if (isPlaying) addMusicPulse();
+                else removeMusicPulse();
+            }, 50);
+        });
+
+        // === GALLERY LAZY REVEAL ===
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, idx) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('in-view'), idx * 80);
+                    galleryObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.gallery-img-wrap').forEach((el, i) => {
+            el.dataset.delay = i * 80;
+            galleryObserver.observe(el);
+        });
+
+        // === THANK YOU CARD REVEAL ===
+        const tyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    tyObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.thankyou-card').forEach(el => tyObserver.observe(el));
+
+        // === FLOATING HEARTS on wax seal click ===
+        (function() {
+            const seal = document.querySelector('.wax-seal');
+            if (!seal) return;
+            seal.addEventListener('click', spawnHearts);
+            function spawnHearts() {
+                const emojis = ['❤️','💖','💕','🌸'];
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const h = document.createElement('span');
+                        h.className = 'float-heart';
+                        h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                        h.style.left = (40 + (Math.random() - 0.5) * 80) + 'px';
+                        h.style.bottom = '0';
+                        seal.parentElement.style.position = 'relative';
+                        seal.parentElement.appendChild(h);
+                        setTimeout(() => h.remove(), 3100);
+                    }, i * 120);
+                }
+            }
+        })();
+
+        // === PARALLAX HERO on scroll ===
+        (function() {
+            const heroImg = document.querySelector('section[style*="100svh"] img');
+            if (!heroImg) return;
+            const container = document.querySelector('.mobile-container');
+            container.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('scroll', onScroll, { passive: true });
+            function onScroll() {
+                const scrollY = window.scrollY || container.scrollTop || 0;
+                heroImg.style.transform = `scale(1.08) translateY(${scrollY * 0.18}px)`;
+            }
+        })();
+
+        // === COUNTDOWN FLIP ANIMATION ===
+        (function() {
+            const ids = ['nt-days','nt-hours','nt-mins','nt-secs','ng-days','ng-hours','ng-mins','ng-secs'];
+            const prev = {};
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.classList.add('flip-num');
+                prev[id] = el.textContent;
+            });
+            const origUpdate = updateCountdown;
+            window.updateCountdown = function(targetDate, idArr) {
+                origUpdate(targetDate, idArr);
+                idArr.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    const curr = el.textContent;
+                    if (curr !== prev[id]) {
+                        el.classList.remove('flipping');
+                        void el.offsetWidth;
+                        el.classList.add('flipping');
+                        prev[id] = curr;
+                    }
+                });
+            };
+        })();
+
+        // --- Countdown ---
+        function updateCountdown(targetDate, ids) {
+            const now = new Date();
+            const diff = targetDate - now;
+            if (diff <= 0) {
+                ids.forEach(([id, val]) => { const el = document.getElementById(id); if(el) el.textContent = '00'; });
+                return;
+            }
+            const days = Math.floor(diff / 86400000);
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const mins = Math.floor((diff % 3600000) / 60000);
+            const secs = Math.floor((diff % 60000) / 1000);
+            const pad = n => String(n).padStart(2, '0');
+            const [dId, hId, mId, sId] = ids;
+            document.getElementById(dId) && (document.getElementById(dId).textContent = pad(days));
+            document.getElementById(hId) && (document.getElementById(hId).textContent = pad(hours));
+            document.getElementById(mId) && (document.getElementById(mId).textContent = pad(mins));
+            document.getElementById(sId) && (document.getElementById(sId).textContent = pad(secs));
+        }
+
+        const ntDate = new Date('2026-03-29T10:00:00');
+        const ngDate = new Date('2026-03-28T16:30:00');
+
+        setInterval(() => {
+            updateCountdown(ntDate, ['nt-days','nt-hours','nt-mins','nt-secs']);
+            updateCountdown(ngDate, ['ng-days','ng-hours','ng-mins','ng-secs']);
+        }, 1000);
+        updateCountdown(ntDate, ['nt-days','nt-hours','nt-mins','nt-secs']);
+        updateCountdown(ngDate, ['ng-days','ng-hours','ng-mins','ng-secs']);
 
     </script>
 </body>
