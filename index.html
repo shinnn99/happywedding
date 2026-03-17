@@ -794,8 +794,8 @@
                 <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#2d6a8a);"></div>
             </div>
 
-            <!-- Bạn và người thương -->
-            <p class="scroll-fade-up" data-delay="100" style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:1.6rem;margin-bottom:1rem;">Bạn và Người thương</p>
+            <!-- Bạn và người thương / Tên khách mời -->
+            <p id="guestNameDisplay" class="scroll-fade-up" data-delay="100" style="font-family:'Fz-Photograph',cursive;color:#2d6a8a;font-size:1.6rem;margin-bottom:1rem;">Bạn và Người thương</p>
 
             <!-- Tham dự lễ cưới -->
             <p class="scroll-fade-up" data-delay="200" style="font-family:'Philosopher',serif;font-weight:700;font-size:clamp(0.6rem,3.2vw,0.88rem);letter-spacing:0.04em;white-space:nowrap;text-transform:uppercase;color:#1a3a5c;margin-bottom:1.8rem;">Tham dự lễ cưới của Hữu An &amp; Nguyễn Dung</p>
@@ -1829,6 +1829,28 @@
             document.getElementById(mId) && (document.getElementById(mId).textContent = pad(mins));
             document.getElementById(sId) && (document.getElementById(sId).textContent = pad(secs));
         }
+
+        // === URL PARAM: ?ten=TenKhach ===
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const ten = params.get('ten');
+            if (!ten) return;
+            const tenSafe = ten.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+            // Hiển thị tên trên section Thư Mời
+            const display = document.getElementById('guestNameDisplay');
+            if (display) {
+                display.innerHTML = 'Kính mời: <span style="color:#d4af37;">' + tenSafe + '</span>';
+            }
+
+            // Tự điền tên vào form RSVP
+            const rsvpInput = document.getElementById('rsvpName');
+            if (rsvpInput) rsvpInput.value = ten;
+
+            // Tự điền tên vào form lời chúc
+            const wishInput = document.getElementById('wishName');
+            if (wishInput) wishInput.value = ten;
+        })();
 
         const ntDate = new Date('2026-03-29T10:00:00');
         const ngDate = new Date('2026-03-28T16:30:00');
